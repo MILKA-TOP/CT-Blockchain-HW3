@@ -21,15 +21,18 @@ contracts = [w3.eth.contract(address=c_address, abi=abi) for c_address in addres
 
 
 def handle_event(event, name):
-    print(name)
-    print(event)
-    jn = json.loads(Web3.toJSON(event))
-    print(jn)
-    print("{0} :::: |{1}| current: {2}; roundId: {3}; updatedAt: {4}; ".format(str(datetime.datetime.now()),
-                                                                               name,
-                                                                               jn['args']['current'],
-                                                                               jn['args']['roundId'],
-                                                                               jn['args']['updatedAt']))
+    try:
+        print(name)
+        print(event)
+        jn = json.loads(Web3.toJSON(event))
+        print(jn)
+        print("{} :::: |{}| current: {}; roundId: {}; updatedAt: {}; ".format(str(datetime.datetime.now()),
+                                                                              name,
+                                                                              jn['args']['current'],
+                                                                              jn['args']['roundId'],
+                                                                              jn['args']['updatedAt']))
+    except Exception:
+        print("!!!!!!!!!!!!!!!Catch test exception!!!!!!!!!!!!!")
 
 
 async def log_loop1(event_filter, poll_interval, id_contract_name):
